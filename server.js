@@ -93,7 +93,7 @@ app.get('/playlist', async (req, res) => {
     }
     
     try {
-        const playlistUrl = `https://${req.session.server}/get.php?username=${req.session.username}&password=${req.session.password}&type=m3u_plus&output=mpegts`;
+        const playlistUrl = `http://${req.session.server}/get.php?username=${req.session.username}&password=${req.session.password}&type=m3u_plus&output=mpegts`;
         
         const response = await axios.get(playlistUrl, {
             timeout: 10000,
@@ -123,33 +123,6 @@ app.get('/user', (req, res) => {
     });
 });
 
-// Rota para validar M3U (usada pelo login.js para contornar CORS/mobile)
-app.post('/validate-m3u', async (req, res) => {
-    const { m3uUrl } = req.body;
-    if (!m3uUrl) {
-        return res.status(400).json({ valid: false, error: 'URL não informada' });
-    }
-    try {
-        const response = await axios.get(m3uUrl, {
-            timeout: 10000,
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Accept': 'text/plain, application/x-mpegurl, application/vnd.apple.mpegurl'
-            }
-        });
-        const content = response.data;
-        if (!content.includes('#EXTM3U')) {
-            return res.json({ valid: false, error: 'Formato M3U inválido' });
-        }
-        if (content.includes('error') && content.includes('invalid') && content.includes('unauthorized')) {
-            return res.json({ valid: false, error: 'Credenciais inválidas' });
-        }
-        return res.json({ valid: true });
-    } catch (error) {
-        return res.json({ valid: false, error: 'Não foi possível validar o M3U. Verifique suas credenciais.' });
-    }
-});
-
 // Middleware para lidar com rotas não encontradas
 app.use((req, res) => {
     res.status(404).send('Página não encontrada');
@@ -157,5 +130,5 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
-    console.log(`Acesse: https://localhost:${PORT}`);
+    console.log(`Acesse: http://localhost:${PORT}`);
 });

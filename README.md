@@ -36,7 +36,7 @@ npm start
 ```
 
 4. **Acesse a plataforma**
-Abra seu navegador e acesse: `https://localhost:3000`
+Abra seu navegador e acesse: `http://localhost:3000`
 
 ## 🎯 Como Usar
 
@@ -75,8 +75,8 @@ A plataforma suporta os seguintes servidores pré-configurados:
 ### Servidor Customizado
 Se você tem um servidor próprio:
 1. Selecione "Outro" no dropdown
-2. Digite apenas a parte após `https://`
-3. Exemplo: Para `https://meuservidor.com`, digite apenas `meuservidor.com`
+2. Digite apenas a parte após `http://`
+3. Exemplo: Para `http://meuservidor.com`, digite apenas `meuservidor.com`
 
 ## 📱 Compatibilidade
 
