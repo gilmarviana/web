@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Validar login e M3U antes de conectar
         try {
             // Primeiro, testar se o login é válido
-            const testM3uUrl = `http://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
+            const testM3uUrl = `https://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
             
             loadingMessage.innerHTML = '<div class="loading-spinner"></div><span>Validando credenciais...</span>';
             
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Erro na validação:', err.message);
             
             // Salva no localStorage
-            const testM3uUrl = `http://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
+            const testM3uUrl = `https://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
             localStorage.setItem('m3uUrl', testM3uUrl);
             localStorage.setItem('username', username);
             localStorage.setItem('servidor', servidor);
