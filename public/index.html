@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tríade IPTV - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="login-page">
+    <!-- Background com gradiente animado -->
+    <div class="login-background">
+        <div class="gradient-overlay"></div>
+        <div class="floating-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo e título -->
+            <div class="login-header">
+                <div class="logo-container">
+                    <img src="https://triadeiptv.com.br/wp-content/uploads/2023/05/logo.png" alt="Tríade IPTV" class="logo-image">
+                </div>
+                <h1>Tríade IPTV</h1>
+                <p>Entre para acessar o melhor conteúdo</p>
+            </div>
+
+            <!-- Formulário de login -->
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <div class="input-container">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+                        <div class="input-line"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-container">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordIcon"></i>
+                        </button>
+                        <div class="input-line"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-container">
+                        <i class="fas fa-server input-icon"></i>
+                        <select id="server" name="server" required>
+                            <option value="">Selecione um servidor</option>
+                            <option value="premium (Concluído)">Premium (Concluído)</option>
+                            <option value="super-premium (manutenção)">Super Premium (manutenção)</option>
+                            <option value="padrao-1 (manutenção)">Padrão 1 (manutenção)</option>
+                            <option value="padrao-2 (manutenção)">Padrão 2 (manutenção)</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <div class="input-line"></div>
+                    </div>
+                </div>
+
+                <div class="form-group custom-server-group" id="customServerGroup" style="display: none;">
+                    <div class="input-container">
+                        <i class="fas fa-globe input-icon"></i>
+                        <div class="custom-server-input">
+                            <span class="url-prefix">http://</span>
+                            <input type="text" id="customServer" name="customServer" placeholder="exemplo.com">
+                        </div>
+                        <div class="input-line"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="btn-text">Entrar</span>
+                    <i class="fas fa-arrow-right btn-icon"></i>
+                </button>
+            </form>
+
+            <!-- Mensagens de erro e loading -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div id="loadingMessage" class="loading-message" style="display: none;">
+                <div class="loading-spinner"></div>
+                <span>Conectando...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
