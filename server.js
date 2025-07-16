@@ -93,7 +93,7 @@ app.get('/playlist', async (req, res) => {
     }
     
     try {
-        const playlistUrl = `http://${req.session.server}/get.php?username=${req.session.username}&password=${req.session.password}&type=m3u_plus&output=mpegts`;
+        const playlistUrl = `https://${req.session.server}/get.php?username=${req.session.username}&password=${req.session.password}&type=m3u_plus&output=mpegts`;
         
         const response = await axios.get(playlistUrl, {
             timeout: 10000,
@@ -130,5 +130,5 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
-    console.log(`Acesse: http://localhost:${PORT}`);
+    console.log(`Acesse: https://localhost:${PORT}`);
 });
