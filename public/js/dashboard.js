@@ -32,8 +32,9 @@ function startSPA(section) {
 
 // Ao carregar, mostra só a landing
 window.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('landing').style.display = '';
-    document.querySelector('.main-layout').style.display = 'none';
+    var modal = document.getElementById('modalPlayer');
+    if (modal) modal.style.display = 'none';
+    if (window.clapprPlayer) window.clapprPlayer.destroy();
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -562,4 +563,14 @@ function confirmarLogoutExecutar() {
     // Redirecionar para a página de login
     window.location.href = 'index.html';
 }
+
+// Sempre garanta que o modal está oculto após qualquer inicialização
+setInterval(function() {
+    var modal = document.getElementById('modalPlayer');
+    if (modal && modal.style.display !== 'none') {
+        console.log('Forçando ocultação do modal');
+        modal.style.display = 'none';
+        if (window.clapprPlayer) window.clapprPlayer.destroy();
+    }
+}, 500);
 

@@ -28,15 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'premium (Concluído)':
                 servidor = 'zed5.top';
                 break;
-            case 'super-premium (manutenção)':
-                servidor = 'voando66483.click';
-                break;
-            case 'padrao-1 (manutenção)':
-                servidor = 'nplaylunar.shop';
-                break;
-            case 'padrao-2 (manutenção)':
-                servidor = 'nplaysolar.shop';
-                break;
             case 'outro':
                 customServer = document.getElementById('customServer').value.trim();
                 if (!customServer) {
@@ -59,65 +50,19 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingMessage.style.display = 'none';
             return;
         }
-        // Validar login e M3U antes de conectar
-        try {
-            // Primeiro, testar se o login é válido
-            const testM3uUrl = `http://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
-            
-            loadingMessage.innerHTML = '<div class="loading-spinner"></div><span>Validando credenciais...</span>';
-            
-            // Usar a função de validação robusta
-            await validateM3U(testM3uUrl);
-            
-            // Se chegou até aqui, as credenciais são válidas
-            loadingMessage.innerHTML = '<div class="loading-spinner"></div><span>Redirecionando...</span>';
-            
-            // Salva no localStorage para uso no dashboard
-            localStorage.setItem('m3uUrl', testM3uUrl);
-            localStorage.setItem('username', username);
-            localStorage.setItem('servidor', servidor);
-            localStorage.setItem('server', serverValue); // Salva o valor escolhido (premium, super-premium, etc.)
-            
-            // Redireciona diretamente para o dashboard
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 1000);
-        } catch (err) {
-            console.log('Erro na validação:', err.message);
-            
-            // Salva no localStorage
-            const testM3uUrl = `http://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
-            localStorage.setItem('m3uUrl', testM3uUrl);
-            localStorage.setItem('username', username);
-            localStorage.setItem('servidor', servidor);
-            localStorage.setItem('server', serverValue);
-            
-            // Se a mensagem for "Credenciais inválidas", autoriza o acesso
-            if (err.message.includes('Credenciais inválidas')) {
-                loginError.textContent = 'Aviso: Credenciais inválidas - Autorizando acesso...';
-                loginError.style.display = 'block';
-                
-                // Redireciona após 2 segundos
-                setTimeout(() => {
-                    loadingMessage.innerHTML = '<div class="loading-spinner"></div><span>Redirecionando...</span>';
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
-                }, 2000);
-            } else {
-                // Para outros erros, verifica se é "Servidor não respondeu corretamente"
-                if (err.message.includes('Acesso inválido, verifique com a administração')) {
-                    loginError.textContent = ''; // Texto em branco
-                    loginError.style.display = 'block';
-                    loadingMessage.style.display = 'none';
-                } else {
-                    // Para outros erros, mostra o erro normalmente
-                    loginError.textContent = err.message || 'Erro de conexão com o servidor.';
-                    loginError.style.display = 'block';
-                    loadingMessage.style.display = 'none';
-                }
-            }
-        }
+
+        // Salva no localStorage para uso no dashboard
+        const testM3uUrl = `http://${servidor}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=m3u8`;
+        localStorage.setItem('m3uUrl', testM3uUrl);
+        localStorage.setItem('username', username);
+        localStorage.setItem('servidor', servidor);
+        localStorage.setItem('server', serverValue);
+
+        // Redireciona diretamente para o dashboard
+        loadingMessage.innerHTML = '<div class="loading-spinner"></div><span>Redirecionando...</span>';
+        setTimeout(() => {
+            window.location.href = 'dashboard.html';
+        }, 1000);
     });
 
     // Animação adicional para os inputs
