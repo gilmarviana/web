@@ -53,23 +53,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const headerUser = document.getElementById('headerUser');
     const headerServer = document.getElementById('headerServer');
     
-    console.log('Valor do servidor no localStorage:', serverValue);
-    
     if (headerUser) headerUser.textContent = user;
     
     // Converter o valor do servidor para o nome amigável
     let serverName = 'Padrão';
     switch(serverValue) {
-        case 'premium (Concluído)':
+        case 'premium':
             serverName = 'Premium';
             break;
-        case 'super-premium (manutenção)':
+        case 'super-premium':
             serverName = 'Super Premium';
             break;
-        case 'padrao-1 (manutenção)':
+        case 'padrao-1':
             serverName = 'Padrão 1';
             break;
-        case 'padrao-2 (manutenção)':
+        case 'padrao-2':
             serverName = 'Padrão 2';
             break;
         case 'outro':
@@ -79,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
             serverName = 'Padrão';
     }
     
-    console.log('Nome do servidor atribuído:', serverName);
     if (headerServer) headerServer.textContent = serverName;
 
     // Formulário de busca global
