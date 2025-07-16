@@ -85,27 +85,61 @@ function renderInfoFilme() {
 }
 
 function abrirModalPlayerFilme(url, titulo) {
+    console.log('Abrindo modal para filme:', titulo, 'URL:', url);
     const modal = document.getElementById('modalPlayer');
     const container = document.getElementById('modalPlayerContainer');
     const titleDiv = document.getElementById('modalPlayerTitle');
+    
+    if (!modal) {
+        console.error('Modal não encontrado!');
+        return;
+    }
+    
+    if (!container) {
+        console.error('Container do player não encontrado!');
+        return;
+    }
+    
+    if (typeof Clappr === 'undefined') {
+        console.error('Biblioteca Clappr não carregada!');
+        return;
+    }
+    
     modal.style.display = 'flex';
     container.innerHTML = '';
     if (titleDiv) titleDiv.textContent = titulo || '';
-    if (window.clapprPlayer) window.clapprPlayer.destroy();
-    window.clapprPlayer = new Clappr.Player({
-        source: url,
-        parentId: "#modalPlayerContainer",
-        autoPlay: true,
-        width: "100%",
-        height: "100%",
-        mute: false,
-        hideControls: true
-    });
+    
+    if (window.clapprPlayer) {
+        console.log('Destruindo player anterior...');
+        window.clapprPlayer.destroy();
+    }
+    
+    console.log('Criando novo player...');
+    try {
+        window.clapprPlayer = new Clappr.Player({
+            source: url,
+            parentId: "#modalPlayerContainer",
+            autoPlay: true,
+            width: "100%",
+            height: "100%",
+            mute: false,
+            hideControls: true
+        });
+        console.log('Modal aberto com sucesso!');
+    } catch (error) {
+        console.error('Erro ao criar player:', error);
+    }
 }
+
+// Exportar para escopo global
+window.abrirModalPlayerFilme = abrirModalPlayerFilme;
 function fecharModalPlayer() {
     document.getElementById('modalPlayer').style.display = 'none';
     if (window.clapprPlayer) window.clapprPlayer.destroy();
 }
+
+// Exportar para escopo global
+window.fecharModalPlayer = fecharModalPlayer;
 
 window.selectCategoria = function(idx) {
     categoriaSelecionadaFilme = idx;
@@ -116,9 +150,20 @@ window.selectCategoria = function(idx) {
 };
 
 window.selectFilme = function(idx) {
+    console.log('Filme selecionado:', idx);
     filmeSelecionado = idx;
     renderFilmesGrid();
     renderInfoFilme();
+    
+    // Abrir modal do player quando um filme é selecionado
+    const filme = categoriasFilmes[categoriaSelecionadaFilme]?.filmes[idx];
+    console.log('Filme encontrado:', filme);
+    if (filme && filme.url) {
+        console.log('Abrindo modal para filme:', filme.nome);
+        abrirModalPlayerFilme(filme.url, filme.nome);
+    } else {
+        console.error('Filme não encontrado ou sem URL:', filme);
+    }
 };
 
 async function inicializarFilmes() {
@@ -155,5 +200,11 @@ async function inicializarFilmes() {
 
 // Carregar filmes automaticamente quando a página carrega
 window.addEventListener('DOMContentLoaded', inicializarFilmes);
+
+// Função de teste para verificar se o modal funciona
+window.testarModal = function() {
+    console.log('Testando modal...');
+    abrirModalPlayerFilme('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'Teste de Modal');
+};
 
 window.inicializarFilmes = inicializarFilmes; 

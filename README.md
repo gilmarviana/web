@@ -247,3 +247,6 @@ export default App;
 ---
 
 Se quiser um exemplo com lista de canais ou integração com M3U, peça que eu monto para você!
+
+
+- **15/07 21:05
